@@ -1,0 +1,112 @@
+EXPEDIENTE TÉCNICO DE DESARROLLO DE SOFTWARE - SUBCOMPONENTE FRONTEND
+PROYECTO: ANDESFACT - SISTEMA DE FACTURACIÓN ELECTRÓNICA
+
+1. RESUMEN EJECUTIVO
+   El presente documento detalla las especificaciones técnicas, arquitectura y requerimientos funcionales para el desarrollo del frontend del sistema "AndesFact". Este componente será responsable de proporcionar la interfaz de usuario (UI) para la gestión de facturación electrónica, interactuando con el backend existente (Java Spring Boot) a través de servicios RESTful.
+
+2. OBJETIVOS DEL PROYECTO
+   2.1. Objetivo General
+      Desarrollar una interfaz web moderna, responsiva y profesional que permita gestionar el ciclo completo de la facturación electrónica (Emisión, Firma y Envío a SUNAT), así como la administración de catálogos (Clientes, Productos).
+
+   2.2. Objetivos Específicos
+      - Implementar un módulo de autenticación seguro basado en JWT.
+      - Desarrollar interfaces CRUD (Crear, Leer, Actualizar, Eliminar) para Productos y Clientes.
+      - Construir un módulo de facturación que permita la creación dinámica de comprobantes.
+      - Integrar el flujo de procesamiento de facturas: Generación de XML -> Firma Digital -> Envío a SUNAT.
+      - Asegurar una experiencia de usuario (UX) fluida con feedback visual inmediato (alertas, loaders).
+
+3. ALCANCE
+   El desarrollo abarca la implementación de una Single Page Application (SPA) que consumirá las siguientes APIs identificadas en el backend:
+   - Auth: /api/auth/login
+   - Productos: /api/products
+   - Clientes: /api/clients
+   - Facturación: /api/invoices (incluyendo sub-recursos para XML, Firma y Envío).
+
+4. ESPECIFICACIONES TÉCNICAS
+
+   4.1. Stack Tecnológico
+      - Lenguaje Core: JavaScript (ES6+) / TypeScript (Recomendado para tipado estricto con los DTOs del backend).
+      - Framework Frontend: React JS (v18+).
+      - Build Tool: Vite (para optimización de tiempos de carga y desarrollo).
+      - State Management: React Context API o Zustand (para manejo de sesión y carrito de facturación).
+      - Enrutamiento: React Router DOM v6.
+      - Cliente HTTP: Axios (con interceptores para el manejo de tokens JWT).
+
+   4.2. Requerimientos de UI/UX y Diseño
+      - Estilo Visual: Profesional, Robusto y Alto Contraste.
+      - Paleta de Colores Definida:
+         * Primario: Rojo (Ej. #E53935 - Acción principal, Bordes activos).
+         * Fondo Base: Negro / Gris Oscuro (Ej. #121212 - Para modo oscuro o secciones de alto impacto).
+         * Contraste/Fondo Tarjetas: Blanco (Ej. #FFFFFF - Para formularios y tablas legibles).
+         * Acentuación: Variaciones de Rojo y Escala de Grises.
+      - Framework de Estilos: Tailwind CSS (Sugerido para flexibilidad) o Material UI (personalizado con la paleta indicada).
+      - Tipografía: Sans-serif moderna (Inter o Roboto).
+
+5. ARQUITECTURA DE LA SOLUCIÓN
+
+   5.1. Estructura de Directorios Propuesta
+      /src
+         /assets        (Imágenes, iconos)
+         /components    (Botones, Campos de Texto, Tablas Reutilizables)
+         /context       (AuthContext, FacturaContext)
+         /hooks         (useAuth, useInvoices - Lógica de negocio encapsulada)
+         /layouts       (MainLayout: Sidebar + Navbar + Content)
+         /pages         (Vistas principales)
+         /services      (Definición de llamadas a la API: api.js)
+         /types         (Interfaces TypeScript basadas en los DTOs Java)
+         /utils         (Formateadores de moneda, validaciones)
+
+6. DESCRIPCIÓN FUNCIONAL DE MÓDULOS
+
+   6.1. Módulo de Seguridad (Acceso)
+      - Pantalla de Login: Formulario centrado. Fondo Negro/Rojo.
+      - Integración: POST /api/auth/login.
+      - Almacenamiento: Guardado de Token en localStorage/sessionStorage.
+
+   6.2. Módulo de Clientes (Gestión de Terceros)
+      - Lista de Clientes: Tabla paginada.
+      - Registro: Formulario para crear cliente (Validación de RUC/DNI, Email).
+      - Integración: GET, POST /api/clients.
+
+   6.3. Módulo de Productos (Inventario)
+      - Catálogo: Visualización de productos con precio unitario y código.
+      - Mantenimiento: ABM de productos.
+      - Integración: GET, POST /api/products.
+
+   6.4. Módulo de Facturación (Core de Negocio)
+      - Emisión de Comprobante:
+         * Header: Selección de Cliente y Moneda.
+         * Detalle: Agregar ítems (Búsqueda de producto o ingreso manual).
+         * Cálculos: Subtotal, IGV, Total (Frontend debe calcular referencialmente, Backend valida).
+      - Bandeja de Facturas:
+         * Listado con estado actual (Borrador, Firmada, Enviada).
+         * Botones de Acción (Secuenciales):
+            1. [Generar XML] -> POST /api/invoices/{id}/xml
+            2. [Firmar] -> POST /api/invoices/{id}/sign
+            3. [Enviar a SUNAT] -> POST /api/invoices/{id}/send
+
+7. CONSIDERACIONES DE INTEGRACIÓN (BACKEND HANDSHAKE)
+
+   7.1. Manejo de Errores
+      - El frontend debe interceptar códigos HTTP 401 (No autorizado) para redirigir al login.
+      - Validaciones de formulariodeben reflejar las constraints del backend (@Valid en DTOs).
+
+   7.2. Datos y Tipos (Mapeo)
+      - InvoiceRequest debe construir una estructura JSON anidada:
+        {
+          "series": "F001",
+          "items": [...]
+        }
+      - Los montos (BigDecimal en Java) deben manejarse con cuidado en JS (evitar coma flotante), enviando strings o numbers con precisión dos.
+
+8. PLAN DE TRABAJO SUGERIDO
+   Fase 1: Configuración del entorno (Vite + Tailwind) y Autenticación.
+   Fase 2: Maestros (CRUD de Clientes y Productos).
+   Fase 3: Interfaz de Facturación y Lógica de Carrito.
+   Fase 4: Integración de Procesos Asíncronos (XML/Firma/Envío).
+   Fase 5: Pruebas (QA) y Despliegue.
+
+9. ANEXOS
+   - URL Base API: https://system-factelec-sunat.onrender.com (Render-Desplegado)
+
+FIN DEL DOCUMENTO
