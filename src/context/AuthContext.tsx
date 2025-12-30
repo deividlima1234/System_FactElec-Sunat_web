@@ -34,7 +34,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         if (!isAuthenticated) return;
 
         const INACTIVITY_LIMIT = 15 * 60 * 1000; // 15 minutes
-        let inactivityTimer: NodeJS.Timeout;
+        let inactivityTimer: ReturnType<typeof setTimeout>;
 
         const resetTimer = () => {
             if (inactivityTimer) clearTimeout(inactivityTimer);
