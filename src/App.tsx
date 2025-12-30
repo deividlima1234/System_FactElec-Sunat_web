@@ -8,6 +8,7 @@ import ProductsPage from './pages/ProductsPage';
 import InvoicesPage from './pages/InvoicesPage';
 import CreateInvoicePage from './pages/CreateInvoicePage';
 import InvoiceDetailsPage from './pages/InvoiceDetailsPage';
+import AuditPage from './pages/AuditPage';
 
 // Placeholder Pages
 const Dashboard = () => (
@@ -60,6 +61,7 @@ function App() {
         <Route path="invoices/:id" element={<InvoiceDetailsPage />} />
         <Route path="clients" element={<ClientsPage />} />
         <Route path="products" element={<ProductsPage />} />
+        <Route path="audit" element={<AuditPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace />} />

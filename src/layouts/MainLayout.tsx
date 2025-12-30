@@ -9,7 +9,8 @@ import {
     FileText,
     LogOut,
     Menu,
-    ChevronRight
+    ChevronRight,
+    ShieldCheck
 } from 'lucide-react';
 import clsx from 'clsx';
 
@@ -24,6 +25,7 @@ const MainLayout: React.FC = () => {
         { name: 'Facturación', path: '/invoices', icon: FileText },
         { name: 'Clientes', path: '/clients', icon: Users },
         { name: 'Productos', path: '/products', icon: Package },
+        { name: 'Auditoría', path: '/audit', icon: ShieldCheck },
     ];
 
     return (

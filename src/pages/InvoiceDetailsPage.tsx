@@ -154,7 +154,7 @@ const InvoiceDetailsPage: React.FC = () => {
                 <div className="flex justify-between items-center mt-12 pt-6 border-t border-gray-100 dark:border-gray-800">
                     <div className="text-xs text-gray-400">
                         Representación impresa de la Factura Electrónica
-                        <br />Generado por AndesFact System
+                        <br />Generado por Eddam Eloy
                     </div>
                     <div className="space-x-4">
                         <button className="px-4 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-50 flex items-center inline-flex transition-colors">
