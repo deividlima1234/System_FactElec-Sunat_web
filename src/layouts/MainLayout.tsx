@@ -13,12 +13,27 @@ import {
     ShieldCheck
 } from 'lucide-react';
 import clsx from 'clsx';
+const ProfileModal = React.lazy(() => import('../components/profile/ProfileModal'));
 
 const MainLayout: React.FC = () => {
     const { user, logout } = useAuth();
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+    const [fullUser, setFullUser] = useState<any>(null); // keeping as any or importing User type
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+
+    const handleProfileClick = async () => {
+        try {
+            // Dynamically import userService to avoid circular deps if any, or just standard import
+            const { userService } = await import('../services/userService');
+            const userData = await userService.getMe();
+            setFullUser(userData);
+            setIsProfileModalOpen(true);
+        } catch (error) {
+            console.error("Error fetching user profile", error);
+        }
+    };
 
     const navItems = [
         { name: 'Dashboard', path: '/', icon: LayoutDashboard },
@@ -27,6 +42,10 @@ const MainLayout: React.FC = () => {
         { name: 'Productos', path: '/products', icon: Package },
         { name: 'Auditoría', path: '/audit', icon: ShieldCheck },
     ];
+
+    if (user?.role === 'ROLE_ADMIN') {
+        navItems.splice(4, 0, { name: 'Usuarios', path: '/users', icon: Users });
+    }
 
     return (
         <div className="flex h-screen bg-gray-100 dark:bg-background overflow-hidden">
@@ -67,8 +86,11 @@ const MainLayout: React.FC = () => {
                 </nav>
 
                 <div className="p-4 border-t border-gray-800">
-                    <div className="flex items-center">
-                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-sm font-bold">
+                    <div
+                        className="flex items-center cursor-pointer hover:bg-gray-800/50 p-2 rounded-lg transition-colors"
+                        onClick={handleProfileClick}
+                    >
+                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-sm font-bold shadow-md ring-2 ring-primary/20">
                             {user?.username?.[0]?.toUpperCase() || 'U'}
                         </div>
                         {isSidebarOpen && (
@@ -113,6 +135,16 @@ const MainLayout: React.FC = () => {
                     <Outlet />
                 </main>
             </div>
+
+            <React.Suspense fallback={null}>
+                {isProfileModalOpen && (
+                    <ProfileModal
+                        isOpen={isProfileModalOpen}
+                        onClose={() => setIsProfileModalOpen(false)}
+                        user={fullUser}
+                    />
+                )}
+            </React.Suspense>
         </div>
     );
 };
