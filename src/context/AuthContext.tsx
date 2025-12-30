@@ -18,15 +18,39 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        // Check for stored token and user on mount
-        const token = localStorage.getItem('token');
-        const storedUser = localStorage.getItem('user');
+        const initializeAuth = async () => {
+            const token = localStorage.getItem('token');
+            if (token) {
+                try {
+                    // 1. Optimistic load from storage to show UI immediately
+                    const storedUser = localStorage.getItem('user');
+                    if (storedUser) {
+                        const parsedUser = JSON.parse(storedUser);
+                        setUser(parsedUser);
+                        setIsAuthenticated(true);
+                    }
 
-        if (token && storedUser) {
-            setUser(JSON.parse(storedUser));
-            setIsAuthenticated(true);
-        }
-        setIsLoading(false);
+                    // 2. Verify with backend to get fresh data (e.g. role changes)
+                    const response = await api.get('/api/v1/users/me');
+                    const freshUser = {
+                        username: response.data.username,
+                        role: response.data.role
+                    };
+
+                    // Update state and storage with fresh data
+                    setUser(freshUser);
+                    setIsAuthenticated(true);
+                    localStorage.setItem('user', JSON.stringify(freshUser));
+                } catch (error) {
+                    console.error("Session verification failed", error);
+                    // If backend rejects token (e.g. expired/invalid), logout
+                    logout();
+                }
+            }
+            setIsLoading(false);
+        };
+
+        initializeAuth();
     }, []);
 
     // Auto-logout functionality
