@@ -47,18 +47,34 @@ const MainLayout: React.FC = () => {
         navItems.splice(4, 0, { name: 'Usuarios', path: '/users', icon: Users });
     }
 
+    // Close sidebar on mobile when navigating
+    const handleNavigation = () => {
+        if (window.innerWidth < 1024) {
+            setIsSidebarOpen(false);
+        }
+    };
+
     return (
-        <div className="flex h-screen bg-gray-100 dark:bg-background overflow-hidden">
+        <div className="flex h-screen bg-gray-100 dark:bg-background overflow-hidden relative">
+            {/* Mobile Backdrop */}
+            {isSidebarOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-20 lg:hidden backdrop-blur-sm transition-opacity"
+                    onClick={() => setIsSidebarOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
             <aside
                 className={clsx(
-                    "bg-background-paper border-r border-gray-800 text-white transition-all duration-300 ease-in-out flex flex-col z-20",
-                    isSidebarOpen ? "w-64" : "w-20"
+                    "fixed lg:static inset-y-0 left-0 z-30 bg-background-paper border-r border-gray-800 text-white transition-all duration-300 ease-in-out flex flex-col",
+                    isSidebarOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full lg:w-20 lg:translate-x-0"
                 )}
             >
-                <div className="h-16 flex items-center justify-center border-b border-gray-800">
-                    <div className={clsx("flex items-center font-bold text-xl", isSidebarOpen ? "px-4" : "justify-center")}>
-                        <span className="text-primary truncate">{isSidebarOpen ? 'AndesFact' : 'AF'}</span>
+                <div className="h-16 flex items-center justify-center border-b border-gray-800 shrink-0">
+                    <div className={clsx("flex items-center font-bold text-xl transition-all duration-300", isSidebarOpen ? "px-4" : "justify-center px-0")}>
+                        <span className="text-primary truncate">{isSidebarOpen ? 'AndesFact' : <span className="lg:block hidden">AF</span>}</span>
+                        {!isSidebarOpen && <span className="lg:hidden block">AndesFact</span>}
                     </div>
                 </div>
 
@@ -67,6 +83,7 @@ const MainLayout: React.FC = () => {
                         <NavLink
                             key={item.path}
                             to={item.path}
+                            onClick={handleNavigation}
                             className={({ isActive }) => clsx(
                                 "flex items-center px-4 py-3 rounded-lg transition-colors group",
                                 isActive
@@ -75,7 +92,7 @@ const MainLayout: React.FC = () => {
                             )}
                         >
                             <item.icon className="w-5 h-5 min-w-[20px]" />
-                            <span className={clsx("ml-3 transition-opacity duration-200", isSidebarOpen ? "opacity-100" : "opacity-0 hidden")}>
+                            <span className={clsx("ml-3 transition-opacity duration-200 whitespace-nowrap", isSidebarOpen ? "opacity-100" : "opacity-0 hidden lg:block lg:opacity-0 group-hover:lg:opacity-100")}>
                                 {item.name}
                             </span>
                             {isSidebarOpen && (
@@ -85,12 +102,12 @@ const MainLayout: React.FC = () => {
                     ))}
                 </nav>
 
-                <div className="p-4 border-t border-gray-800">
+                <div className="p-4 border-t border-gray-800 shrink-0">
                     <div
                         className="flex items-center cursor-pointer hover:bg-gray-800/50 p-2 rounded-lg transition-colors"
                         onClick={handleProfileClick}
                     >
-                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-sm font-bold shadow-md ring-2 ring-primary/20">
+                        <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-sm font-bold shadow-md ring-2 ring-primary/20 shrink-0">
                             {user?.username?.[0]?.toUpperCase() || 'U'}
                         </div>
                         {isSidebarOpen && (

@@ -77,14 +77,14 @@ const UsersPage: React.FC = () => {
 
     return (
         <div className="container mx-auto px-4 py-6 space-y-6">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div className="flex items-center space-x-3">
                     <Users className="w-8 h-8 text-primary" />
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Gestión de Usuarios</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Gestión de Usuarios</h1>
                 </div>
                 <button
                     onClick={handleCreateUser}
-                    className="flex items-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-red-700 transition-colors shadow-md"
+                    className="w-full sm:w-auto flex items-center justify-center px-4 py-2 bg-primary text-white rounded-lg hover:bg-red-700 transition-colors shadow-md"
                 >
                     <Plus className="w-5 h-5 mr-2" />
                     Nuevo Usuario

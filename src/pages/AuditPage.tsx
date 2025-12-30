@@ -64,10 +64,10 @@ const AuditPage: React.FC = () => {
 
     return (
         <div className="container mx-auto px-4 py-6 space-y-6">
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 space-y-4 sm:space-y-0">
                 <div className="flex items-center space-x-3">
                     <ShieldCheck className="w-8 h-8 text-primary" />
-                    <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Auditoría del Sistema</h1>
+                    <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Auditoría del Sistema</h1>
                 </div>
             </div>
 

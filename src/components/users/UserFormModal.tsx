@@ -53,9 +53,9 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
-            <div className="bg-white dark:bg-background-paper rounded-xl shadow-xl w-full max-w-md overflow-hidden transform transition-all scale-100">
-                <div className="flex justify-between items-center p-6 border-b border-gray-100 dark:border-gray-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4 animate-in fade-in duration-200">
+            <div className="bg-white dark:bg-background-paper rounded-xl shadow-xl w-full max-w-md overflow-hidden transform transition-all scale-100 flex flex-col max-h-[90vh]">
+                <div className="flex justify-between items-center p-6 border-b border-gray-100 dark:border-gray-800 shrink-0">
                     <h3 className="text-xl font-bold text-gray-900 dark:text-white">
                         {userToEdit ? 'Editar Usuario' : 'Nuevo Usuario'}
                     </h3>
@@ -64,7 +64,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                     </button>
                 </div>
 
-                <form onSubmit={handleSubmit} className="p-6 space-y-4">
+                <form onSubmit={handleSubmit} className="p-6 space-y-4 overflow-y-auto">
                     <div className="space-y-2">
                         <label className="text-sm font-medium text-gray-700 dark:text-gray-300 flex items-center gap-2">
                             <UserIcon className="w-4 h-4" /> Nombre de Usuario
