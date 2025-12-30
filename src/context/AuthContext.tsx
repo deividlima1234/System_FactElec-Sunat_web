@@ -29,6 +29,40 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         setIsLoading(false);
     }, []);
 
+    // Auto-logout functionality
+    useEffect(() => {
+        if (!isAuthenticated) return;
+
+        const INACTIVITY_LIMIT = 15 * 60 * 1000; // 15 minutes
+        let inactivityTimer: NodeJS.Timeout;
+
+        const resetTimer = () => {
+            if (inactivityTimer) clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(() => {
+                console.log("Sesión expirada por inactividad");
+                logout();
+            }, INACTIVITY_LIMIT);
+        };
+
+        const events = ['mousemove', 'keydown', 'click', 'scroll', 'touchstart'];
+
+        // Setup listeners
+        events.forEach(event => {
+            window.addEventListener(event, resetTimer);
+        });
+
+        // Initialize timer
+        resetTimer();
+
+        // Cleanup
+        return () => {
+            if (inactivityTimer) clearTimeout(inactivityTimer);
+            events.forEach(event => {
+                window.removeEventListener(event, resetTimer);
+            });
+        };
+    }, [isAuthenticated]);
+
     const login = async (credentials: any) => {
         try {
             const response = await api.post<LoginResponse>('/api/auth/login', credentials);

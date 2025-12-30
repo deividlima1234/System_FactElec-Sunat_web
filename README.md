@@ -1,73 +1,115 @@
-# React + TypeScript + Vite
+# Sistema de Facturación Electrónica Web 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
+![React](https://img.shields.io/badge/React-18.0-blue)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)
+![Vite](https://img.shields.io/badge/Vite-5.0-purple)
+![TailwindCSS](https://img.shields.io/badge/Tailwind-3.4-cyan)
 
-Currently, two official plugins are available:
+Aplicación Web moderna y profesional para la emisión de Comprobantes de Pago Electrónicos (CPE), diseñada para cumplir con los estándares de la SUNAT y ofrecer una experiencia de usuario excepcional.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+**Desarrollado por:** Eddam_Eloy y el equipo de desarrollo. 👨‍💻
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🌟 Características Principales
 
-## Expanding the ESLint configuration
+### 🔐 Seguridad y Autenticación
+*   **Login Seguro:** Autenticación basada en JWT (JSON Web Tokens).
+*   **Auto-Logout Inteligente:** Cierre de sesión automático tras 15 minutos de inactividad para proteger la seguridad de los datos.
+*   **Protección de Rutas:** Guardias de navegación para restringir el acceso no autorizado.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### 📋 Gestión Comercial
+*   **Clientes:** Registro completo de clientes (RUC, DNI), validación de documentos y gestión de directorio.
+*   **Productos:** Catálogo de productos y servicios, incluyendo códigos de unidad (NIU, ZZ, etc.) y precios unitarios.
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### 🧾 Facturación Electrónica (Core)
+*   **Emisión de Facturas:** Interfaz intuitiva para la creación de comprobantes.
+    *   Búsqueda inteligente de clientes y productos.
+    *   Cálculo automático de IGV (18%) y totales.
+    *   Soporte para múltiples monedas (PEN, USD).
+*   **Ciclo de Vida del Comprobante (Workflow Visual):**
+    1.  **Creada (CREATED):** Generación del borrador.
+    2.  **XML Generado:** Botón para generar el archivo UBL estándar.
+    3.  **Firmada:** Firma digital del comprobante.
+    4.  **Enviada (SENT):** Envío a los servidores de la SUNAT/OSE.
+*   **Visualización Detallada:** Vista profesional de la factura ("Ojo") con diseño listo para imprimir, mostrando todos los datos fiscales (Emisor, Cliente, Ítems, Impuestos).
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 🎨 Experiencia de Usuario (UX/UI)
+*   **Modo Oscuro:** Soporte nativo para Dark Mode.
+*   **Diseño Responsivo:** Adaptable a móviles, tablets y escritorio.
+*   **Arquitectura Dinámica:** Configuración de empresa externalizada y adaptable a respuestas del backend.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+---
+
+## 🛠️ Stack Tecnológico
+
+*   **Frontend Framework:** React 18 + TypeScript
+*   **Build Tool:** Vite (Ultra rápido)
+*   **Estilos:** TailwindCSS (Diseño Utility-first)
+*   **Navegación:** React Router DOM (SPA)
+*   **HTTP Client:** Axios (con interceptores para manejo de tokens)
+*   **Iconografía:** Lucide React
+
+---
+
+## 🚀 Instalación y Despliegue
+
+### Requisitos Previos
+*   Node.js (v16.0 o superior)
+*   NPM o Yarn
+
+### Pasos para Ejecutar en Local
+
+1.  **Clonar el Repositorio**
+    ```bash
+    git clone https://github.com/deividlima1234/system-factelec-web.git
+    cd system-factelec-web
+    ```
+
+2.  **Instalar Dependencias**
+    ```bash
+    npm install
+    # o
+    yarn install
+    ```
+
+3.  **Configurar Variables de Entorno (Opcional)**
+    El proyecto utiliza `vite.config.ts` para gestionar el proxy hacia el backend. Por defecto apunta a `localhost:8080`.
+
+4.  **Iniciar Modo Desarrollo**
+    ```bash
+    npm run dev
+    ```
+    La aplicación estará disponible en `http://localhost:5173`.
+
+### Conexión con Backend
+El sistema espera un Backend RESTful (Spring Boot / Laravel / Node) corriendo en el puerto `8080` (o configurado en el proxy). Asegúrate de que tu backend provea:
+*   Auth (JWT)
+*   Endpoints para `clients`, `products`, `invoices`.
+
+---
+
+## 📁 Estructura del Proyecto
+
+```
+src/
+├── components/      # Componentes UI reutilizables (Forms, Buttons, Modals)
+├── config/          # Configuraciones globales (Company Info)
+├── context/         # Estado global (AuthContext)
+├── layouts/         # Plantillas de diseño (Sidebar, Navbar)
+├── pages/           # Vistas principales (Invoices, Clients, Login)
+├── services/        # Lógica de comunicación API (Axios services)
+├── types/           # Definiciones de Tipos TypeScript (Interfaces DTO)
+└── utils/           # Funciones auxiliares
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🤝 Contribución
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Este proyecto es mantenido por **Eddam_Eloy**. Las contribuciones son bienvenidas bajo el flujo de Pull Requests.
+
+---
+
+© 2025 AndesFact System. Todos los derechos reservados.

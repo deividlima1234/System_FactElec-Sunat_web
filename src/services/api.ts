@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = 'https://system-factelec-sunat.onrender.com';
+const API_URL = ''; // Relative path to use Vite proxy
 
 const api = axios.create({
     baseURL: API_URL,
