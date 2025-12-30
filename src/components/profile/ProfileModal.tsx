@@ -12,7 +12,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose, user }) =>
     if (!isOpen || !user) return null;
 
     const getRoleBadge = (role: string) => {
-        if (role === 'ROLE_ADMIN') return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+        if (role === 'ADMIN') return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
         return 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
     };
 

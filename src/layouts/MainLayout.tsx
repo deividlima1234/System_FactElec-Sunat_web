@@ -43,7 +43,7 @@ const MainLayout: React.FC = () => {
         { name: 'Auditoría', path: '/audit', icon: ShieldCheck },
     ];
 
-    if (user?.role === 'ROLE_ADMIN') {
+    if (user?.role === 'ADMIN') {
         navItems.splice(4, 0, { name: 'Usuarios', path: '/users', icon: Users });
     }
 

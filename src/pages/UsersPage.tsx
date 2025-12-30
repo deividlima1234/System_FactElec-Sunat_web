@@ -64,7 +64,7 @@ const UsersPage: React.FC = () => {
     };
 
     const getRoleBadge = (role: string) => {
-        const styles = role === 'ROLE_ADMIN'
+        const styles = role === 'ADMIN'
             ? 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300'
             : 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300';
 

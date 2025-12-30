@@ -21,7 +21,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
         username: '',
         email: '',
         password: '',
-        role: 'ROLE_USER' as UserRole,
+        role: 'USER' as UserRole,
         active: true
     });
 
@@ -39,7 +39,7 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                 username: '',
                 email: '',
                 password: '',
-                role: 'ROLE_USER',
+                role: 'USER',
                 active: true
             });
         }
@@ -116,8 +116,8 @@ const UserFormModal: React.FC<UserFormModalProps> = ({
                             onChange={(e) => setFormData({ ...formData, role: e.target.value as UserRole })}
                             className="w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent bg-white dark:bg-gray-900 text-gray-900 dark:text-white"
                         >
-                            <option value="ROLE_USER">Usuario Regular</option>
-                            <option value="ROLE_ADMIN">Administrador</option>
+                            <option value="USER">Usuario Regular</option>
+                            <option value="ADMIN">Administrador</option>
                         </select>
                     </div>
 
