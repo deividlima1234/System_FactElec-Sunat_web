@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail, AlertCircle } from 'lucide-react';
+import logo from '../assets/images/logo_Empresarial.png';
 
 const LoginPage: React.FC = () => {
     const [username, setUsername] = useState('');
@@ -37,8 +38,9 @@ const LoginPage: React.FC = () => {
             <div className="w-full max-w-md z-10 p-4">
                 <div className="card border-t-4 border-primary">
                     <div className="text-center mb-8">
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">AndesFact</h1>
-                        <p className="text-gray-500">Sistema de Facturación Electrónica </p>
+                        <img src={logo} alt="EddamCore Logo" className="mx-auto h-24 mb-4" />
+                        <h1 className="text-3xl font-bold text-gray-900 mb-2">EddamCore</h1>
+                        <p className="text-gray-500">Cybersecurity & Software Development</p>
                     </div>
 
                     {error && (
@@ -101,7 +103,7 @@ const LoginPage: React.FC = () => {
                     </form>
 
                     <div className="mt-6 text-center text-xs text-gray-400">
-                        &copy; {new Date().getFullYear()} AndesFact. Todos los derechos reservados.
+                        &copy; {new Date().getFullYear()} EddamCore. Todos los derechos reservados.
                     </div>
                 </div>
             </div>

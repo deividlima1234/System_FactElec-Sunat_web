@@ -13,6 +13,7 @@ import {
     ShieldCheck
 } from 'lucide-react';
 import clsx from 'clsx';
+import logo from '../assets/images/logo_Empresarial.png';
 const ProfileModal = React.lazy(() => import('../components/profile/ProfileModal'));
 
 const MainLayout: React.FC = () => {
@@ -71,10 +72,17 @@ const MainLayout: React.FC = () => {
                     isSidebarOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full lg:w-20 lg:translate-x-0"
                 )}
             >
-                <div className="h-16 flex items-center justify-center border-b border-gray-800 shrink-0">
-                    <div className={clsx("flex items-center font-bold text-xl transition-all duration-300", isSidebarOpen ? "px-4" : "justify-center px-0")}>
-                        <span className="text-primary truncate">{isSidebarOpen ? 'AndesFact' : <span className="lg:block hidden">AF</span>}</span>
-                        {!isSidebarOpen && <span className="lg:hidden block">AndesFact</span>}
+                <div className="h-20 flex items-center justify-center border-b border-gray-800 shrink-0 p-4">
+                    <div className={clsx("flex items-center font-bold text-xl transition-all duration-300", isSidebarOpen ? "px-2" : "justify-center px-0")}>
+                        {isSidebarOpen ? (
+                            <div className="flex flex-col items-center">
+                                <img src={logo} alt="EddamCore" className="h-10 mb-1" />
+                                <span className="text-primary truncate text-lg">EddamCore</span>
+                            </div>
+                        ) : (
+                            <span className="text-primary lg:block hidden">EC</span>
+                        )}
+                        {!isSidebarOpen && <span className="lg:hidden block text-primary">EddamCore</span>}
                     </div>
                 </div>
 

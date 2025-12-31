@@ -1,3 +1,9 @@
+<div align="center">
+  <img src="src/assets/images/logo_Empresarial.png" alt="EddamCore Logo" width="120" />
+  <h1>EddamCore</h1>
+  <p>Cybersecurity & Software Development</p>
+</div>
+
 # Sistema de Facturación Electrónica Web 🚀
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)
@@ -112,4 +118,4 @@ Este proyecto es mantenido por **Eddam_Eloy**. Las contribuciones son bienvenida
 
 ---
 
-© 2025 AndesFact System. Todos los derechos reservados.
+© 2025 EddamCore. Todos los derechos reservados.
