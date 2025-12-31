@@ -36,11 +36,10 @@ const LoginPage: React.FC = () => {
             </div>
 
             <div className="w-full max-w-md z-10 p-4">
-                <div className="card border-t-4 border-primary">
+                <div className="bg-slate-900 border-t-4 border-primary rounded-lg shadow-xl p-8">
                     <div className="text-center mb-8">
-                        <img src={logo} alt="EddamCore Logo" className="mx-auto h-24 mb-4" />
-                        <h1 className="text-3xl font-bold text-gray-900 mb-2">EddamCore</h1>
-                        <p className="text-gray-500">Cybersecurity & Software Development</p>
+                        <img src={logo} alt="EddamCore Logo" className="mx-auto h-[100px] mb-4" />
+                        <p className="text-gray-400">Cybersecurity & Software Development</p>
                     </div>
 
                     {error && (
@@ -52,7 +51,7 @@ const LoginPage: React.FC = () => {
 
                     <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
                                 Usuario
                             </label>
                             <div className="relative">
@@ -62,7 +61,7 @@ const LoginPage: React.FC = () => {
                                 <input
                                     type="text"
                                     required
-                                    className="input-field pl-10 bg-white border-gray-300 text-gray-900 focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    className="input-field pl-10 bg-slate-800 border-slate-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent"
                                     placeholder="User"
                                     value={username}
                                     onChange={(e) => setUsername(e.target.value)}
@@ -71,7 +70,7 @@ const LoginPage: React.FC = () => {
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
+                            <label className="block text-sm font-medium text-gray-300 mb-1">
                                 Contraseña
                             </label>
                             <div className="relative">
@@ -81,7 +80,7 @@ const LoginPage: React.FC = () => {
                                 <input
                                     type="password"
                                     required
-                                    className="input-field pl-10 bg-white border-gray-300 text-gray-900 focus:ring-2 focus:ring-primary focus:border-transparent"
+                                    className="input-field pl-10 bg-slate-800 border-slate-700 text-white placeholder-gray-500 focus:ring-2 focus:ring-primary focus:border-transparent"
                                     placeholder="••••••••"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}

@@ -72,15 +72,14 @@ const MainLayout: React.FC = () => {
                     isSidebarOpen ? "w-64 translate-x-0" : "w-64 -translate-x-full lg:w-20 lg:translate-x-0"
                 )}
             >
-                <div className="h-20 flex items-center justify-center border-b border-gray-800 shrink-0 p-4">
+                <div className="min-h-[140px] flex items-center justify-center border-b border-gray-800 shrink-0 p-4">
                     <div className={clsx("flex items-center font-bold text-xl transition-all duration-300", isSidebarOpen ? "px-2" : "justify-center px-0")}>
                         {isSidebarOpen ? (
                             <div className="flex flex-col items-center">
-                                <img src={logo} alt="EddamCore" className="h-10 mb-1" />
-                                <span className="text-primary truncate text-lg">EddamCore</span>
+                                <img src={logo} alt="EddamCore" className="h-[100px] mb-1" />
                             </div>
                         ) : (
-                            <span className="text-primary lg:block hidden">EC</span>
+                            <img src={logo} alt="EC" className="h-10 w-auto" />
                         )}
                         {!isSidebarOpen && <span className="lg:hidden block text-primary">EddamCore</span>}
                     </div>
@@ -100,7 +99,7 @@ const MainLayout: React.FC = () => {
                             )}
                         >
                             <item.icon className="w-5 h-5 min-w-[20px]" />
-                            <span className={clsx("ml-3 transition-opacity duration-200 whitespace-nowrap", isSidebarOpen ? "opacity-100" : "opacity-0 hidden lg:block lg:opacity-0 group-hover:lg:opacity-100")}>
+                            <span className={clsx("ml-3 transition-opacity duration-200 whitespace-nowrap", isSidebarOpen ? "opacity-100 block" : "hidden")}>
                                 {item.name}
                             </span>
                             {isSidebarOpen && (
