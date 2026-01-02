@@ -8,6 +8,7 @@ import ProductsPage from './pages/ProductsPage';
 import InvoicesPage from './pages/InvoicesPage';
 import CreateInvoicePage from './pages/CreateInvoicePage';
 import InvoiceDetailsPage from './pages/InvoiceDetailsPage';
+import CreateReceiptPage from './pages/CreateReceiptPage';
 import AuditPage from './pages/AuditPage';
 import UsersPage from './pages/UsersPage';
 
@@ -59,6 +60,7 @@ function App() {
         <Route index element={<Dashboard />} />
         <Route path="invoices" element={<InvoicesPage />} />
         <Route path="invoices/new" element={<CreateInvoicePage />} />
+        <Route path="receipts/new" element={<CreateReceiptPage />} />
         <Route path="invoices/:id" element={<InvoiceDetailsPage />} />
         <Route path="clients" element={<ClientsPage />} />
         <Route path="products" element={<ProductsPage />} />

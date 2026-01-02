@@ -32,11 +32,14 @@ export interface Invoice {
     items: InvoiceItem[];
     xmlUrl?: string;
     cdrUrl?: string;
+    retentionAmount?: number;
+    netAmount?: number;
 }
 
 export interface CreateInvoiceDTO {
     clientId: number;
     series: string;
+    type?: string; // e.g. 'RECIBO_HONORARIOS'
     items: {
         productId?: number;
         productCode: string;

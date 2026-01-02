@@ -10,7 +10,8 @@ import {
     LogOut,
     Menu,
     ChevronRight,
-    ShieldCheck
+    ShieldCheck,
+    StickyNote
 } from 'lucide-react';
 import clsx from 'clsx';
 import logo from '../assets/images/logo_Empresarial.png';
@@ -39,6 +40,7 @@ const MainLayout: React.FC = () => {
     const navItems = [
         { name: 'Dashboard', path: '/', icon: LayoutDashboard },
         { name: 'Facturación', path: '/invoices', icon: FileText },
+        { name: 'Recibos Honorarios', path: '/receipts/new', icon: StickyNote },
         { name: 'Clientes', path: '/clients', icon: Users },
         { name: 'Productos', path: '/products', icon: Package },
         { name: 'Auditoría', path: '/audit', icon: ShieldCheck },
