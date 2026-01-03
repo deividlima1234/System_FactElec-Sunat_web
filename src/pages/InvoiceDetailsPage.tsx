@@ -41,6 +41,8 @@ const InvoiceDetailsPage: React.FC = () => {
         return <div className="text-center py-10">Factura no encontrada</div>;
     }
 
+    console.log("Invoice Data:", invoice);
+
     return (
         <div className="container mx-auto px-4 py-6 space-y-6">
             <button
@@ -56,7 +58,7 @@ const InvoiceDetailsPage: React.FC = () => {
                 <div className="flex justify-between items-start mb-8 border-b dark:border-gray-700 pb-6">
                     <div>
                         <h1 className="text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
-                            {invoice.invoiceType === 'RECIBO_HONORARIOS' ? 'RECIBO POR HONORARIOS' : 'FACTURA'}
+                            {(invoice.invoiceType === 'RECIBO_HONORARIOS' || invoice.type === 'RECIBO_HONORARIOS') ? 'RECIBO POR HONORARIOS' : 'FACTURA'}
                         </h1>
                         <p className="text-gray-500 mt-1 uppercase text-sm font-semibold tracking-wider">ELECTRÓNICA</p>
                     </div>
@@ -137,7 +139,7 @@ const InvoiceDetailsPage: React.FC = () => {
                 {/* Totals */}
                 <div className="flex justify-end border-t border-gray-200 dark:border-gray-700 pt-6">
                     <div className="w-64 space-y-3">
-                        {invoice.invoiceType === 'RECIBO_HONORARIOS' ? (
+                        {(invoice.invoiceType === 'RECIBO_HONORARIOS' || invoice.type === 'RECIBO_HONORARIOS') ? (
                             <>
                                 <div className="flex justify-between text-gray-500">
                                     <span>Total Honorario</span>
