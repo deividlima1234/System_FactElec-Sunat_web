@@ -55,7 +55,9 @@ const InvoiceDetailsPage: React.FC = () => {
                 {/* Header */}
                 <div className="flex justify-between items-start mb-8 border-b dark:border-gray-700 pb-6">
                     <div>
-                        <h1 className="text-4xl font-bold text-gray-900 dark:text-white tracking-tight">FACTURA</h1>
+                        <h1 className="text-4xl font-bold text-gray-900 dark:text-white tracking-tight">
+                            {invoice.invoiceType === 'RECIBO_HONORARIOS' ? 'RECIBO POR HONORARIOS' : 'FACTURA'}
+                        </h1>
                         <p className="text-gray-500 mt-1 uppercase text-sm font-semibold tracking-wider">ELECTRÓNICA</p>
                     </div>
                     <div className="text-right">
@@ -135,18 +137,39 @@ const InvoiceDetailsPage: React.FC = () => {
                 {/* Totals */}
                 <div className="flex justify-end border-t border-gray-200 dark:border-gray-700 pt-6">
                     <div className="w-64 space-y-3">
-                        <div className="flex justify-between text-gray-500">
-                            <span>Subtotal</span>
-                            <span className="font-mono">{(invoice.totalAmount / 1.18).toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between text-gray-500">
-                            <span>IGV (18%)</span>
-                            <span className="font-mono">{(invoice.totalAmount - (invoice.totalAmount / 1.18)).toFixed(2)}</span>
-                        </div>
-                        <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-white border-t border-dashed border-gray-300 pt-3">
-                            <span>Total</span>
-                            <span>S/. {invoice.totalAmount.toFixed(2)}</span>
-                        </div>
+                        {invoice.invoiceType === 'RECIBO_HONORARIOS' ? (
+                            <>
+                                <div className="flex justify-between text-gray-500">
+                                    <span>Total Honorario</span>
+                                    <span className="font-mono">{invoice.totalAmount.toFixed(2)}</span>
+                                </div>
+                                {invoice.retentionAmount && invoice.retentionAmount > 0 ? (
+                                    <div className="flex justify-between text-red-500">
+                                        <span>Retención (8%)</span>
+                                        <span className="font-mono">- {invoice.retentionAmount.toFixed(2)}</span>
+                                    </div>
+                                ) : null}
+                                <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-white border-t border-dashed border-gray-300 pt-3">
+                                    <span>Total Neto</span>
+                                    <span>S/. {invoice.netAmount ? invoice.netAmount.toFixed(2) : (invoice.totalAmount - (invoice.retentionAmount || 0)).toFixed(2)}</span>
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="flex justify-between text-gray-500">
+                                    <span>Subtotal</span>
+                                    <span className="font-mono">{(invoice.totalAmount / 1.18).toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between text-gray-500">
+                                    <span>IGV (18%)</span>
+                                    <span className="font-mono">{(invoice.totalAmount - (invoice.totalAmount / 1.18)).toFixed(2)}</span>
+                                </div>
+                                <div className="flex justify-between text-xl font-bold text-gray-900 dark:text-white border-t border-dashed border-gray-300 pt-3">
+                                    <span>Total</span>
+                                    <span>S/. {invoice.totalAmount.toFixed(2)}</span>
+                                </div>
+                            </>
+                        )}
                     </div>
                 </div>
 

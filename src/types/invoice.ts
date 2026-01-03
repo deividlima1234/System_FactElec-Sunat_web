@@ -26,6 +26,7 @@ export interface Invoice {
     issueDate: string;
     totalAmount: number;
     status: 'CREATED' | 'XML_GENERATED' | 'SIGNED' | 'SENT' | 'ACCEPTED' | 'REJECTED' | 'ANULADA';
+    invoiceType?: string; // e.g. 'RECIBO_HONORARIOS'
     clientName: string; // From backend
     client?: Client;    // Optional
     company?: Company;  // Company/Issuer Info from Backend
